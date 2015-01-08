@@ -17,8 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR='nano'
-export VISUAL='nano'
+export EDITOR='vim'
+export VISUAL='vim'
 export PAGER='less'
 
 #
@@ -26,7 +26,19 @@ export PAGER='less'
 #
 
 if [[ -z "$LANG" ]]; then
-  export LANG='en_US.UTF-8'
+  if [[ "$OSTYPE" == darwin* ]]; then
+    export LANG='en_US.UTF-8'
+  else
+    export LANG='es_ES.UTF-8'
+  fi
+fi
+
+if [[ -z "$LC_ALL" ]]; then
+  if [[ "$OSTYPE" == darwin* ]]; then
+    export LC_ALL='en_US.UTF-8'
+  else
+    export LC_ALL='es_ES.UTF-8'
+  fi
 fi
 
 #
@@ -43,8 +55,17 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
+  $HOME/bin
+  $HOME/.composer/vendor/bin
+  $HOME/.npm-packages/bin
+  $HOME/.config/composer/vendor/bin
   /usr/local/{bin,sbin}
   $path
+)
+
+fpath=(
+  $HOME/.zfunctions
+  $fpath
 )
 
 #
